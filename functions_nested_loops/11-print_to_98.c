@@ -8,63 +8,34 @@
  */
 void print_to_98(int n)
 {
-	int i;
+	int step;
 
 	if (n <= 98)
-	{
-		for (i = n; i <= 98; i++)
-		{
-			if (i != 98)
-			{
-				_putchar(i / 10 + '0');
-				_putchar(i % 10 + '0');
-				_putchar(',');
-				_putchar(' ');
-			}
-			else
-			{
-				if (i < 10 && i >= 0)
-					_putchar(i + '0');
-				else if (i < 0)
-				{
-					_putchar('-');
-					_putchar(-i / 10 + '0');
-					_putchar(-i % 10 + '0');
-				}
-				else
-				{
-					_putchar(i / 10 + '0');
-					_putchar(i % 10 + '0');
-				}
-			}
-		}
-	}
+		step = 1;
 	else
+		step = -1;
+
+	while (n != 98)
 	{
-		for (i = n; i >= 98; i--)
+		if (n < 0)
 		{
-			if (i != 98)
-			{
-				if (i >= 0)
-				{
-					_putchar(i / 10 + '0');
-					_putchar(i % 10 + '0');
-				}
-				else
-				{
-					_putchar('-');
-					_putchar(-i / 10 + '0');
-					_putchar(-i % 10 + '0');
-				}
-				_putchar(',');
-				_putchar(' ');
-			}
-			else
-			{
-				_putchar('9');
-				_putchar('8');
-			}
+			_putchar('-');
+			if (-n >= 10)
+				_putchar((-n / 10) + '0');
+			_putchar((-n % 10) + '0');
 		}
+		else
+		{
+			if (n >= 10)
+				_putchar((n / 10) + '0');
+			_putchar((n % 10) + '0');
+		}
+		_putchar(',');
+		_putchar(' ');
+		n += step;
 	}
+
+	_putchar('9');
+	_putchar('8');
 	_putchar('\n');
 }
