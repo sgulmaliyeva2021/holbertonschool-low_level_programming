@@ -1,10 +1,26 @@
-#ifndef MAIN_H
-#define MAIN_H
+#include <stdio.h>
 
-int _isupper(int c);
-int _isdigit(int c);
-int mul(int a, int b);
-void _putchar(char c);
-void print_numbers(void);
+/**
+ * print_numbers - prints the numbers from 0 to 9
+ *                  followed by a new line
+ */
+void print_numbers(void)
+{
+	char c;
 
-#endif /* MAIN_H */
+	for (c = '0'; c <= '9'; c++)
+		putchar(c);
+
+	putchar('\n');
+}
+
+/**
+ * main - test print_numbers
+ *
+ * Return: Always 0
+ */
+int main(void)
+{
+	print_numbers();
+	return (0);
+}
