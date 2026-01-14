@@ -19,18 +19,19 @@ void print_all(const char * const format, ...)
 
     while (format && format[i])
     {
-        /* comma separator */
         if (printed)
             printf(", ");
 
         printed = 1;
 
-        /* single if to decide type */
-        if (format[i] == 'c' ? printf("%c", va_arg(args, int)) :
-            format[i] == 'i' ? printf("%d", va_arg(args, int)) :
-            format[i] == 'f' ? printf("%f", va_arg(args, double)) :
-            format[i] == 's' ? (str = va_arg(args, char *), str ? printf("%s", str) : printf("(nil)")) : 0)
-            ;
+        /* single if with void cast to avoid empty-body warning */
+        if (format[i])
+            (void)(
+                format[i] == 'c' ? printf("%c", va_arg(args, int)) :
+                format[i] == 'i' ? printf("%d", va_arg(args, int)) :
+                format[i] == 'f' ? printf("%f", va_arg(args, double)) :
+                format[i] == 's' ? ((str = va_arg(args, char *)) ? printf("%s", str) : printf("(nil)")) : 0
+            );
 
         i++;
     }
