@@ -6,7 +6,7 @@
  * print_all - prints anything based on a format string
  * @format: list of types (c: char, i: int, f: float, s: string)
  *
- * Allowed: max 2 ifs, no else if
+ * Only 2 ifs allowed total
  */
 void print_all(const char * const format, ...)
 {
@@ -19,19 +19,19 @@ void print_all(const char * const format, ...)
 
     while (format && format[i])
     {
+        /* comma separator */
         if (printed)
             printf(", ");
 
-        /* Single if for all types */
-        if (format[i] == 'c' || format[i] == 'i' || format[i] == 'f' || format[i] == 's')
-        {
-            printed = 1;
+        printed = 1;
 
-            format[i] == 'c' && printf("%c", va_arg(args, int));
-            format[i] == 'i' && printf("%d", va_arg(args, int));
-            format[i] == 'f' && printf("%f", va_arg(args, double));
-            format[i] == 's' && ((str = va_arg(args, char *)) ? printf("%s", str) : printf("(nil)"));
-        }
+        /* single if to decide type */
+        if (format[i] == 'c' ? printf("%c", va_arg(args, int)) :
+            format[i] == 'i' ? printf("%d", va_arg(args, int)) :
+            format[i] == 'f' ? printf("%f", va_arg(args, double)) :
+            format[i] == 's' ? (str = va_arg(args, char *), str ? printf("%s", str) : printf("(nil)")) : 0)
+            ;
+
         i++;
     }
 
