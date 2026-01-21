@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+/* Function prototypes */
 int open_from(char *file);
 int open_to(char *file);
 void copy_file(int fd_from, int fd_to, char *file_from, char *file_to);
@@ -34,8 +35,12 @@ int main(int ac, char **av)
 	return (0);
 }
 
-/* --- helper functions below --- */
-
+/**
+ * open_from - opens a file for reading
+ * @file: name of the file to open
+ *
+ * Return: file descriptor on success, exits with 98 on error
+ */
 int open_from(char *file)
 {
 	int fd = open(file, O_RDONLY);
@@ -48,6 +53,12 @@ int open_from(char *file)
 	return (fd);
 }
 
+/**
+ * open_to - opens or creates a file for writing
+ * @file: name of the file to create/open
+ *
+ * Return: file descriptor on success, exits with 99 on error
+ */
 int open_to(char *file)
 {
 	int fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0664);
@@ -60,6 +71,15 @@ int open_to(char *file)
 	return (fd);
 }
 
+/**
+ * copy_file - copies the content of fd_from to fd_to
+ * @fd_from: file descriptor to read from
+ * @fd_to: file descriptor to write to
+ * @file_from: name of source file (for error messages)
+ * @file_to: name of destination file (for error messages)
+ *
+ * Return: void, exits with 98 or 99 on error
+ */
 void copy_file(int fd_from, int fd_to, char *file_from, char *file_to)
 {
 	ssize_t n_read, n_written;
@@ -82,6 +102,12 @@ void copy_file(int fd_from, int fd_to, char *file_from, char *file_to)
 	}
 }
 
+/**
+ * close_fd - closes a file descriptor
+ * @fd: file descriptor to close
+ *
+ * Return: void, exits with 100 on error
+ */
 void close_fd(int fd)
 {
 	if (close(fd) == -1)
