@@ -8,7 +8,11 @@
  * @ac: argument count
  * @av: argument vector
  *
- * Return: 0 on success, exits with 97, 98, 99, 100 on errors
+ * Return: 0 on success, exits with:
+ *         97 if arguments are incorrect
+ *         98 if file_from cannot be read
+ *         99 if file_to cannot be created or written
+ *         100 if a file descriptor cannot be closed
  */
 int main(int ac, char **av)
 {
